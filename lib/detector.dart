@@ -5,7 +5,6 @@ import 'utils/unicode_block.dart';
 import 'language.dart';
 import 'lang_detect_exception.dart';
 import 'detector_factory.dart';
-import 'package:logger/logger.dart';
 
 ///   [Detector] class is to detect language from specified text.
 ///
@@ -21,19 +20,16 @@ import 'package:logger/logger.dart';
 ///  ```
 ///  import 'package:flutter_langdetect/flutter_langdetect.dart';
 ///  import 'package:flutter/widgets.dart';
-///  import 'package:logger/logger.dart';
 ///  void main() async {
 ///    WidgetsFlutterBinding.ensureInitialized();
 ///    DetectorFactory.profileBasePath = "assets/profiles/";
 ///    await initLangDetect();
 ///    final s = "Hello, world!";
 ///    final langs = detect(s);
-///    logger.d("langs: ${langs}");
 ///  }
 /// ```
 ///
 class Detector {
-  final logger = Logger();
   static const double alphaDefault = 0.5;
   static const double alphaWidth = 0.05;
   static const int iterationLimit = 1000;
@@ -244,9 +240,6 @@ class Detector {
     }
 
     List<double> langProbMap = wordLangProbMap[word]!;
-    if (verbose) {
-      logger.d('$word($word): ${_wordProbToString(langProbMap)}');
-    }
 
     double weight = alpha / baseFreq;
     for (int i = 0; i < prob.length; i++) {
